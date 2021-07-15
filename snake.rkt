@@ -67,12 +67,14 @@
   (send dc set-brush (new brush% [color "black"] [style 'solid]))
   (send dc draw-rectangle 0 0 500 500))
 
+
 (define (draw-snake a-snake dc)
   (let* [(head (snake-head a-snake))
          (x (posn-x head))
          (y (posn-y head))]
-    (send dc set-brush (new brush% [color "green"] [style 'solid]))
-    (send dc draw-rectangle x y square-size square-size)))
+    (for/list ([segment (cons head (snake-body a-snake))])
+      (send dc set-brush (new brush% [color "green"] [style 'solid]))
+      (send dc draw-rectangle (posn-x segment) (posn-y segment) square-size square-size))))
 
 
 
